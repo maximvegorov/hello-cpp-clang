@@ -1,5 +1,6 @@
 module;
 
+#include <cstdlib>
 #include <iostream>
 
 export module app;
@@ -10,7 +11,7 @@ export class App final {
 public:
     static int run() {
         showHello();
-        return 0;
+        return EXIT_SUCCESS;
     }
 
 private:
@@ -19,4 +20,4 @@ private:
     }
 };
 
-};  // namespace hl
+}  // namespace hl
