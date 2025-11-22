@@ -1,0 +1,30 @@
+{
+  "name": "C/C++ 23 Dev (clang)",
+  "build": {
+    "dockerfile": "Containerfile",
+    "context": "."
+  },
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "extensions": [
+    "ms-vscode.cpptools",
+    "llvm-vs-code-extensions.vscode-clangd",
+    "ms-vscode.cmake-tools",
+    "vadimcn.vscode-lldb"
+  ],
+  "remoteUser": "root",
+  "runArgs": [
+    "--cap-add=SYS_PTRACE",
+    "--security-opt=seccomp=unconfined",
+    "--env=DISPLAY",
+    "--env=WAYLAND_DISPLAY",
+    "--env=XDG_RUNTIME_DIR",
+    "--env=PULSE_SERVER",
+    "--volume=/tmp/.X11-unix:/tmp/.X11-unix:rw",
+    "--volume=${localEnv:XDG_RUNTIME_DIR}:${localEnv:XDG_RUNTIME_DIR}",
+    "--volume=${localEnv:XDG_RUNTIME_DIR}/pulse:${localEnv:XDG_RUNTIME_DIR}/pulse",
+    "--device=/dev/dri",
+    "--device=/dev/snd"
+  ]
+}

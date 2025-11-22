@@ -1,0 +1,40 @@
+FROM docker.io/fedora:43
+
+ENV PATH="/opt/cmake/bin:/root/.local/bin:${PATH}"
+
+RUN dnf -y update && \
+    dnf -y install \
+        curl \
+        clang \
+        clang-tools-extra \
+        clang-libs \
+        lldb \
+        libcxx-devel \
+        libcxxabi-devel \
+        gcc \
+        gcc-c++ \
+        xz \
+        xz-libs \
+        git \
+        make \
+        ninja-build \
+        gdb \
+        valgrind \
+        procps-ng \
+        python3 \
+        pipx \
+        ca-certificates && \
+    dnf clean all && \
+    rm -rf /var/cache/dnf
+
+RUN pipx install uv && uv --version
+
+RUN curl -L https://github.com/Kitware/CMake/releases/download/v4.2.0/cmake-4.2.0-linux-x86_64.tar.gz \
+        | tar -xz && \
+        mv cmake-*-linux-x86_64 /opt/cmake && \
+        rm -rf cmake-*-linux-x86_64/ && \
+        cmake --version
+
+ENV CC=clang
+ENV CXX=clang++
+
